@@ -1,9 +1,8 @@
 package MarcosUTN.repository;
 
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import MarcosUTN.entities.Player;
+
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -39,6 +38,16 @@ public class DBConnection {
         }
         int index = new Random().nextInt(i);
         return words.get(index);
+    }
+
+    public static void insertWinner(Player player, String word) {
+       try {
+           //La fecha se inserta desde un trigger.
+            String query = "INSERT INTO winners (nombre,word) VALUES ( \" "+ player.getName() +"\" , \" "+ word +"\")";
+            st.executeUpdate(query);
+       } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
 }

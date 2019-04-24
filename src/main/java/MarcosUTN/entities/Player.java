@@ -1,6 +1,8 @@
 package MarcosUTN.entities;
 
 import MarcosUTN.Game;
+import MarcosUTN.repository.DBConnection;
+
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Player implements Runnable{
@@ -79,6 +81,7 @@ public class Player implements Runnable{
             notifyAll();
             if (!word.contains("-")) {
                 gameEnded = true;
+                DBConnection.insertWinner(this, word);
                 System.out.println("Player: "+getName()+" Wins, word: "+ word);
             }else if (this.lifes == 0) {
                 gameEnded = true;
